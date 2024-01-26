@@ -5,6 +5,8 @@ We realized a service that implements the bubble sort algorithm and we used it t
 
 The client request is handled by a load balancer which then routes it to the replicated servers following a Round Robin scheduling.
 
+The addresses of the replicated servers are kept in a configuration file accessed by the load balancer. 
+
 We containerized our distributed application by creating a docker file for every component (client, load balancer and server) and a compose file to orchestrate the containers on the same local host.
 
 Steps to build the images and run the containers and the application:
