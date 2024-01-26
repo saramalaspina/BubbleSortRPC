@@ -1,0 +1,65 @@
+version: '3'
+
+networks:
+  mynetwork:
+
+services:
+
+  client:
+    image: client:1
+    networks:
+      - mynetwork
+    depends_on:
+      - loadbalancer
+
+  loadbalancer:
+    image: loadbalancer:1
+    ports:
+      - "8888:8888"
+    networks:
+      - mynetwork
+    depends_on:
+      - server1
+      - server2
+      - server3
+      - server4
+
+  server1:
+    image: server:1
+    ports:
+      - "8081:8081"
+    networks:
+      - mynetwork
+    environment:
+      - HOSTNAME=server1
+      - PORT=8081
+
+  server2:
+    image: server:1
+    ports:
+      - "8082:8082"
+    networks:
+      - mynetwork
+    environment:
+      - HOSTNAME=server2
+      - PORT=8082
+  
+  server3:
+    image: server:1
+    ports:
+      - "8083:8083"
+    networks:
+      - mynetwork
+    environment:
+      - HOSTNAME=server3
+      - PORT=8083
+
+  server4:
+    image: server:1
+    ports:
+      - "8084:8084"
+    networks:
+      - mynetwork
+    environment:
+      - HOSTNAME=server4
+      - PORT=8084
